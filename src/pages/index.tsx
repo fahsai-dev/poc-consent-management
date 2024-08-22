@@ -1,3 +1,4 @@
+import HeroSection from "@/components/HeroSection";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 
 // import { Inter } from "next/font/google";
@@ -14,8 +15,8 @@ type IServerSideProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 const Home = (data: IServerSideProps) => {
   return (
-    <main className="flex min-h-screen flex-col items-center  p-24">
-      <h1>Home Page</h1>
+    <main>
+      <HeroSection />
 
       <a
         href="#cookie-settings"

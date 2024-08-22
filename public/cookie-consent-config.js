@@ -42,7 +42,7 @@
       strategy: "clear_all_except_defined",
     },
     ui_options: {
-      include_default_stylesheets: true,
+      include_default_stylesheets: false,
       external_stylesheets: ["http://localhost:8080/demo/cookie-consent.css"], //custom css
       internal_stylesheets: [],
     },
@@ -157,4 +157,46 @@
   script.type = "text/javascript";
   script.async = true;
   document.head.appendChild(script);
+
+  // After the script is loaded and executed
+  script.onload = function () {
+    // Wait until the DOM is fully loaded
+    document.addEventListener("DOMContentLoaded", function () {
+      function insertLogoAfterElement(targetId, footerId) {
+        var targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          var newFooterLogo = document.createElement("div");
+          newFooterLogo.id = footerId;
+
+          const logo = document.createElement("img");
+          logo.src =
+            "https://digital-cdn.msig-thai.com/images/UtmSource_Logo_MN0001.png";
+          logo.alt = "cookie-banner-logo";
+          logo.id = "cc-footer-logo";
+          newFooterLogo.prepend(logo);
+
+          targetElement.insertAdjacentElement("afterend", newFooterLogo);
+          return true;
+        }
+        return false;
+      }
+
+      function checkAndInsertLogos() {
+        var interval1 = setInterval(function () {
+          if (insertLogoAfterElement("c-inr", "cc-footer-main")) {
+            clearInterval(interval1); // Stop the interval after successful insertion
+          }
+        }, 100);
+
+        var interval2 = setInterval(function () {
+          if (insertLogoAfterElement("s-bns", "cc-footer-inner")) {
+            clearInterval(interval2); // Stop the interval after successful insertion
+          }
+        }, 100);
+      }
+
+      // Start checking and inserting logos
+      checkAndInsertLogos();
+    });
+  };
 })();
